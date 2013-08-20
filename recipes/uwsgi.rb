@@ -26,6 +26,11 @@ if node['graphite']['uwsgi']['listen_http'] == false
   Chef::Log.info("You have disabled uwsgi listening on an http port. Graphite web will not be accessible unless you are talking to the uwsgi socket from an external process")
 end
 
+template "#{node['graphite']['base_dir']}/conf/graphite.wsgi" do
+  owner "www-data"
+  group "www-data"
+end
+
 include_recipe "runit"
 
 python_pip "uwsgi" do
